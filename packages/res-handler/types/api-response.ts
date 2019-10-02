@@ -3,9 +3,9 @@ export interface ApiResponse {
   // api 业务状态码，0为成功，其余为其他情况
   code: number;
   // 具体状态消息
-  message: string;
+  message?: string;
   // 具体数据
-  data: any;
+  data?: any;
 }
 
 // 发送请求的格式

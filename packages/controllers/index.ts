@@ -1,7 +1,11 @@
-import { Router } from "express";
+import {
+  Router
+} from "express";
 import * as rootController from "./root";
 import * as authController from "./auth";
 import { resHandler } from "@nws/res-handler";
+
+import "./declare";
 
 const ControllerRouter = Router();
 

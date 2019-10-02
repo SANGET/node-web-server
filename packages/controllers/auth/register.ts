@@ -1,29 +1,26 @@
-import { Request, Response } from "express";
 import { getManager } from "typeorm";
 
 import { Users } from "@nws/entities/users";
 import pwHelper from "@nws/utils/pw-helper";
 
-export const register = async (req: Request, res: Response) => {
+export const register = async (req: Req, res: Res, next: Next) => {
   const { username, password } = req.body;
   const userRepository = getManager().getRepository(Users);
   const user = await userRepository.findOne({ username });
   if(user) {
-    return res.json({
-      err: true,
-      message: "用户已存在"
-    });
+    res.locals.handledResult = {
+      code: 1002,
+    };
+  } else {
+    const newUser = new Users();
+    // const newUser = userRepository.create(req.body);
+    newUser.username = username;
+    newUser.password = await pwHelper(password);
+    userRepository.save(newUser);
   }
-  const newUser = new Users();
-  const createAt = new Date();
-  // const newUser = userRepository.create(req.body);
-  newUser.username = username;
-  newUser.createAt = createAt;
-  newUser.password = await pwHelper(password, createAt);
-  userRepository.save(newUser);
 
-  res.json({
-    err: false,
-    message: "注册成功"
-  });
+  res.locals.handledResult = {
+    code: 0,
+  };
+  next();
 };

@@ -18,8 +18,8 @@ export class Users {
   @Column({ type: "varchar", default: "" })
   avatarUrl: string;
 
-  @Column({ type: "timestamp" })
-  createAt: Date;
+  @CreateDateColumn({ type: "timestamp" })
+  createAt: number;
 
   @UpdateDateColumn({ type: "timestamp" })
   updateAt: number;

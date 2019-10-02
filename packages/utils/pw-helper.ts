@@ -9,10 +9,10 @@ export const connectPW = (srcPW: string, createAt: Date) => {
   return srcPW + String(createAt);
 };
 
-const pwHelper = (srcPW: string, createAt: Date, saltRounds = 10) => {
+const pwHelper = (srcPW: string, saltRounds = 10) => {
   return new Promise<string>((resolve, reject) => {
-    const resPW = connectPW(srcPW, createAt);
-    bcrypt.hash(resPW, saltRounds, (err, hash) => {
+    // const resPW = connectPW(srcPW, createAt);
+    bcrypt.hash(srcPW, saltRounds, (err, hash) => {
       if(err) {
         reject(err);
       } else {
