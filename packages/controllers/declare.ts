@@ -4,12 +4,16 @@ import {
   NextFunction,
 } from "express";
 
-import { ApiResponse } from "@nws/res-handler/types/api-response";
-
 declare global {
+  /** 统一的 api res 数据结构的定义 */
+  interface HandledResult {
+    code: number;
+    data?: any;
+  }
   interface Res extends ExpressRes {
     locals: {
-      handledResult: ApiResponse;
+      /** controller 需要按照此格式回应 */
+      handledResult: HandledResult;
     };
   }
   interface Req extends ExpressReq {

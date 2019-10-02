@@ -2,9 +2,6 @@ import express from "express";
 import compression from "compression";
 import helmet from "helmet";
 import cors from "cors";
-import morgan from "morgan";
-import fs from "fs";
-import path from "path";
 import bodyParser from "body-parser";
 
 import Controller from "@nws/controllers";

@@ -1,8 +1,17 @@
 import { CodeMapper } from "../../types/code-mapper-types";
+import CodeMap from "../enum";
 
-const zhCNMapper: CodeMapper = {
-  "0": "成功",
-  "1001": "用户名或密码错误",
-  "9999": "未知错误",
-};
+/** 这里做枚举定义的反射 */
+
+const zhCNMapper: CodeMapper = {};
+
+const _CodeMap: {
+  [key: string]: number;
+} = CodeMap;
+
+Object.keys(_CodeMap).forEach(key => {
+  const val = _CodeMap[key];
+  zhCNMapper[val] = key;
+});
+
 export default zhCNMapper;

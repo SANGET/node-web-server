@@ -2,7 +2,7 @@ import { getManager } from "typeorm";
 import bcrypt from "bcrypt";
 
 import { Users } from "@nws/entities/users";
-// import pwHelper, { connectPW } from "@nws/utils/pw-helper";
+import CodeMap from "@nws/res-handler/res-code-mapper/enum";
 
 export const login = async (req: Req, res: Res, next: Next) => {
   const { username, password } = req.body;
@@ -10,14 +10,14 @@ export const login = async (req: Req, res: Res, next: Next) => {
   const user = await userRepository.findOne({ username });
   if(user) {
     bcrypt.compare(password, user.password, (err, isMatch) => {
-      let handledResult;
+      let handledResult: HandledResult;
       if(!err && isMatch) {
         handledResult = {
-          code: 0
+          code: CodeMap["成功"]
         };
       } else {
         handledResult = {
-          code: 1001
+          code: CodeMap["用户名或密码错误"]
         };
       }
       res.locals.handledResult = handledResult;
@@ -25,7 +25,7 @@ export const login = async (req: Req, res: Res, next: Next) => {
     });
   } else {
     res.locals.handledResult = {
-      code: 1001
+      code: CodeMap["用户名或密码错误"]
     };
     next();
   }
