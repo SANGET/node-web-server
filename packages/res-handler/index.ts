@@ -1,11 +1,26 @@
 import { CodeCN } from "./res-code-mapper";
+import CodeMap from "@nws/res-handler/res-code-mapper/enum";
 
-export const resHandler = (req: Req, res: Res) => {
-  const { code = 9999, data } = res.locals.handledResult;
-  const resData = {
-    code,
-    message: CodeCN[`${code}`],
-    data
-  };
+export const resHandler = (req: Req, res: Res, next: Next) => {
+  const { handledResult } = res.locals;
+  let resData = {};
+  if(!handledResult) {
+    const code = CodeMap["警告，有未处理的 api"];
+    resData = {
+      code,
+      message: CodeCN[`${code}`],
+    };
+  } else {
+    const { code = 9999, data, setSession } = handledResult;
+    if(setSession) {
+      req.session;
+    }
+    resData = {
+      code,
+      message: CodeCN[`${code}`],
+      data
+    };
+  }
   res.json(resData);
+  next();
 };

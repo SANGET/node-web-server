@@ -15,6 +15,9 @@
       "*": [
         "packages/*",
         "src/types/*"
+      ],
+      "@nws": [
+        "packages"
       ]
     }
   },

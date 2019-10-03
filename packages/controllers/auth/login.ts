@@ -13,8 +13,10 @@ export const login = async (req: Req, res: Res, next: Next) => {
       let handledResult: HandledResult;
       if(!err && isMatch) {
         handledResult = {
-          code: CodeMap["成功"]
+          code: CodeMap["成功"],
+          setSession: true,
         };
+        req.session.username = username;
       } else {
         handledResult = {
           code: CodeMap["用户名或密码错误"]

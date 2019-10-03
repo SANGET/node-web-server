@@ -8,6 +8,9 @@ declare global {
   /** 统一的 api res 数据结构的定义 */
   interface HandledResult {
     code: number;
+    setSession?: any;
+    // 接口是否需要验证后操作
+    needAuth?: boolean;
     data?: any;
   }
   interface Res extends ExpressRes {
@@ -18,12 +21,10 @@ declare global {
   }
   interface Req extends ExpressReq {
     locals: {
-
+      isNeedAuth?: boolean;
     };
   }
   interface Next extends NextFunction {
-    locals: {
-
-    };
+    locals: any;
   }
 } 
