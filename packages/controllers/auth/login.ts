@@ -14,6 +14,9 @@ export const login = async (req: Req, res: Res, next: Next) => {
       if(!err && isMatch) {
         handledResult = {
           code: CodeMap["成功"],
+          data: {
+            ssID: req.session.id
+          },
           setSession: true,
         };
         req.session.username = username;

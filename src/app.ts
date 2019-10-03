@@ -18,8 +18,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
   name: "ssid",
   secret: "woxiangkankanshenmedongxi",
-  resave: false,
-  saveUninitialized: false,
+  resave: true,
+  saveUninitialized: true,
   cookie: { maxAge: 60000 }
 }));
 

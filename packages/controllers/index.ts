@@ -15,7 +15,7 @@ const ControllerRouter = Router();
 const checkAuth = [
   // jwt({secret: "shhhhhhared-secret"}),
   (req: Req, res: Res, next: Next) => {
-    console.log(req.session.username);
+    console.log(req.headers.ssid);
     if(req.session.username) {
       next();
     } else {
