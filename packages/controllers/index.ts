@@ -1,7 +1,7 @@
 import {
   Router
 } from "express";
-import { resHandler } from "@nws/res-handler";
+import { resHandler, unAuthHandler } from "@nws/res-handler";
 import jwt from "express-jwt";
 
 import * as rootController from "./root";
@@ -15,17 +15,20 @@ const ControllerRouter = Router();
 const checkAuth = [
   // jwt({secret: "shhhhhhared-secret"}),
   (req: Req, res: Res, next: Next) => {
-    console.log(req.headers.ssid);
-    if(req.session.username) {
+    // console.log(req.session.id, req.headers.ssid, req.session.username);
+    // console.log(req.headers.ssid);
+    if(req.session.username && req.session.id === req.headers.ssid) {
+      res.status(200);
       next();
     } else {
-      return res.sendStatus(401);
+      return unAuthHandler(res);
     }
   },
 ];
 
 const setReq = (req: Req, res: Res, next: Next) => {
   if(!req.locals) req.locals = {};
+  res.setHeader("Access-Control-Allow-Credentials", "true");
   next();
 };
 

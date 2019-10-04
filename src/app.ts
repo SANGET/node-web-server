@@ -11,15 +11,18 @@ const app = express();
 
 app.use(helmet());
 app.use(compression());
-app.use(cors());
+app.use(cors({
+  credentials: true, 
+  origin: "http://127.0.0.1:3000"
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(session({
   name: "ssid",
   secret: "woxiangkankanshenmedongxi",
-  resave: true,
-  saveUninitialized: true,
+  resave: false,
+  saveUninitialized: false,
   cookie: { maxAge: 60000 }
 }));
 

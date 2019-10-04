@@ -4,6 +4,7 @@ const CodeMap = {
   "该用户已存在": 1002,
   "未知错误": 9999,
   "警告，有未处理的 api": 9998,
+  "未授权的操作": 9997,
 };
 
 export default CodeMap;
