@@ -9,7 +9,9 @@ export const unAuthHandler = (res: Res) => {
   });
 };
 export const resHandler = (req: Req, res: Res, next: Next) => {
-  const { handledResult } = res.locals;
+  const handledResult = req.user;
+  // console.log(req.user);
+  // const { handledResult } = res.locals;
   let resData = {};
   if(!handledResult) {
     // const code = CodeMap["警告，有未处理的 api"];
@@ -18,10 +20,7 @@ export const resHandler = (req: Req, res: Res, next: Next) => {
     //   message: CodeCN[`${code}`],
     // };
   } else {
-    const { code = 9999, data, setSession } = handledResult;
-    if(setSession) {
-      req.session;
-    }
+    const { code = 9999, data } = handledResult;
     resData = {
       code,
       message: CodeCN[`${code}`],

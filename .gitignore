@@ -45,3 +45,5 @@ _none
 system/servers/webhook/config.js
 
 dist
+
+.config.local.json

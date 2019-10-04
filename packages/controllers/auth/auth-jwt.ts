@@ -1,7 +1,7 @@
 import passport from "passport";
 import { Strategy as JWTStrategy, ExtractJwt, StrategyOptions } from "passport-jwt";
 import { JWT_SEC } from "@nws/configs";
-import { getManager } from "typeorm";
+import findUser from "./find-user";
 
 const jwtOpts: StrategyOptions = {
   jwtFromRequest: ExtractJwt.fromHeader("authorization"),
@@ -9,8 +9,10 @@ const jwtOpts: StrategyOptions = {
 };
 
 const jwtStrategy = new JWTStrategy(jwtOpts, async (payload, done) => {
+  console.log(payload);
   try {
-    const user = await User.findById(payload._id);
+    const user = await findUser({ id: payload.id });
+    // done(null, false);
 
     if (!user) {
       return done(null, false);

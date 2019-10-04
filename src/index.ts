@@ -4,7 +4,7 @@ import { createConnection, Connection } from "typeorm";
 import errorHandler from "errorhandler";
 
 import app from "./app";
-import { Port } from "@nws/configs/site";
+import { Port } from "@nws/configs";
 
 createConnection().then(() => {
   /**

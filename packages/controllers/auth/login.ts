@@ -1,4 +1,4 @@
-import { auth, findUser } from "./auth";
+import { authLocal } from "./auth";
 
 const reqValify = async (req: Req, res: Res, next: Next) => {
   const { username, password } = req.body;
@@ -10,6 +10,6 @@ const reqValify = async (req: Req, res: Res, next: Next) => {
 
 export const login = [
   reqValify,
-  findUser,
-  auth,
+  // findUser,
+  authLocal,
 ];

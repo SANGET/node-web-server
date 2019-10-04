@@ -1,6 +1,7 @@
 import passport from "passport";
-import LocalStrategy from "passport-local";
+import { Strategy as LocalStrategy } from "passport-local";
 import { Strategy as JWTStrategy, ExtractJwt } from "passport-jwt";
+import jwt from "jsonwebtoken";
 
 import { getManager } from "typeorm";
 import bcrypt from "bcrypt";
@@ -8,20 +9,29 @@ import bcrypt from "bcrypt";
 import { Users } from "@nws/entities/users";
 import CodeMap from "@nws/res-handler/res-code-mapper/enum";
 
+import findUser from "./find-user";
+import { JWT_SEC, TockenExp } from "@nws/configs";
 
-export const findUser = async (req: Req, res: Res, next: Next) => {
-  const { username, password } = req.body;
-  const userRepository = getManager().getRepository(Users);
-  const user = await userRepository.findOne({ username });
+// export const findUser = async (options) => {
+//   const { username, password } = options;
+//   const userRepository = getManager().getRepository(Users);
+//   const user = await userRepository.findOne({ username });
+//   return user;
 
-  req.locals.user = user;
+//   // req.locals.user = user;
 
-  next();
-};
+//   // next();
+// };
 
-export const auth = (req: Req, res: Res, next: Next) => {
-  const { username, password } = req.body;
-  const { user } = req.locals;
+interface AuthField {
+  username: string;
+  password: string;
+}
+
+// export const auth = async (req: Req, res: Res, next: Next) => {
+export const auth = async (options: AuthField): Promise<HandledResult> => {
+  const { username, password } = options;
+  const user = await findUser({ username });
   let handledResult: HandledResult;
   if(user) {
     try {
@@ -30,9 +40,14 @@ export const auth = (req: Req, res: Res, next: Next) => {
         handledResult = {
           code: CodeMap["成功"],
           data: {
-            ssID: req.session.id
-          },
-          setSession: true,
+            token: jwt.sign(
+              {
+                exp: TockenExp,
+                id: user.id,
+              },
+              JWT_SEC,
+            )
+          }
         };
       } else {
         handledResult = {
@@ -45,17 +60,29 @@ export const auth = (req: Req, res: Res, next: Next) => {
         message: err
       };
     }
-    res.locals.handledResult = handledResult;
   } else {
     handledResult = {
       code: CodeMap["用户名或密码错误"]
     };
   }
-  res.locals.handledResult = handledResult;
-  next();
+  return handledResult;
+  // res.locals.handledResult = handledResult;
+  // next();
 };
 
+const localOpts = {
+  // usernameField: 'email',
+};
+const localStrategy = new LocalStrategy(
+  localOpts,
+  async (username, password, done) => {
+    const authRes = await auth({ username, password });
+    const { code, message } = authRes;
+    const hasErr = code != 0;
+    done(hasErr, hasErr ? false : authRes, { message });
+  }
+);
+
 passport.use(localStrategy);
-passport.use(jwtStrategy);
 
 export const authLocal = passport.authenticate("local", { session: false });
