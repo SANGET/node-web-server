@@ -1,16 +1,17 @@
 import passport from "passport";
 import { Strategy as JWTStrategy, ExtractJwt, StrategyOptions } from "passport-jwt";
-import { JWT_SEC } from "@nws/configs";
+import { JWT_SEC, Authorization } from "@nws/configs";
 import findUser from "./find-user";
 
 const jwtOpts: StrategyOptions = {
-  jwtFromRequest: ExtractJwt.fromHeader("authorization"),
+  jwtFromRequest: ExtractJwt.fromHeader(Authorization),
   secretOrKey: JWT_SEC,
 };
 
 const jwtStrategy = new JWTStrategy(jwtOpts, async (payload, done) => {
   console.log(payload);
   try {
+    /** TODO: 将已经查过的用户放入 redis 缓存中 */
     const user = await findUser({ id: payload.id });
     // done(null, false);
 

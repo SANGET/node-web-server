@@ -2,7 +2,6 @@ import {
   Router
 } from "express";
 import { resHandler, unAuthHandler } from "@nws/res-handler";
-import jwt from "express-jwt";
 
 import * as rootController from "./root";
 import * as authController from "./auth";
@@ -14,33 +13,11 @@ import { authJwt } from "./auth/auth-jwt";
 
 const ControllerRouter = Router();
 
-// const checkAuth = [
-//   // jwt({secret: "shhhhhhared-secret"}),
-//   (req: Req, res: Res, next: Next) => {
-//     // console.log(req.session.id, req.headers.ssid, req.session.username);
-//     // console.log(req.headers.ssid);
-//     if(req.session.username && req.session.id === req.headers.ssid) {
-//       res.status(200);
-//       next();
-//     } else {
-//       return unAuthHandler(res);
-//     }
-//   },
-// ];
-
-// const setReq = (req: Req, res: Res, next: Next) => {
-//   if(!req.locals) req.locals = {};
-//   res.setHeader("Access-Control-Allow-Credentials", "true");
-//   next();
-// };
-
-/** 设置 req 的 locals 字段 */
-// ControllerRouter.use(setReq);
-
 /** 业务处理 */
 /** 不需要做验证的 api */
 ControllerRouter.get("/", rootController.index);
 ControllerRouter.post("/login", authController.login);
+// ControllerRouter.post("/check-token", authController.checkToken);
 ControllerRouter.post("/register", authController.register);
 
 /** 需要做验证的 api */

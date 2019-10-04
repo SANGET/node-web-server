@@ -1,4 +1,5 @@
 import { authLocal } from "./auth";
+import { checkToken } from "./check-token";
 
 const reqValify = async (req: Req, res: Res, next: Next) => {
   const { username, password } = req.body;
@@ -10,6 +11,7 @@ const reqValify = async (req: Req, res: Res, next: Next) => {
 
 export const login = [
   reqValify,
+  checkToken,
   // findUser,
   authLocal,
 ];

@@ -1,12 +1,8 @@
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
-import { Strategy as JWTStrategy, ExtractJwt } from "passport-jwt";
 import jwt from "jsonwebtoken";
-
-import { getManager } from "typeorm";
 import bcrypt from "bcrypt";
 
-import { Users } from "@nws/entities/users";
 import CodeMap from "@nws/res-handler/res-code-mapper/enum";
 
 import findUser from "./find-user";
@@ -56,7 +52,7 @@ export const auth = async (options: AuthField): Promise<HandledResult> => {
       }
     } catch(err) {
       handledResult = {
-        code: CodeMap["警告！密码解析失败"],
+        code: CodeMap["警告！密码解密失败"],
         message: err
       };
     }
