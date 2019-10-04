@@ -12,8 +12,8 @@ const app = express();
 app.use(helmet());
 app.use(compression());
 app.use(cors({
-  credentials: true, 
-  origin: "http://127.0.0.1:3000"
+  // credentials: true, 
+  // origin: "http://127.0.0.1:3000"
 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,7 +23,7 @@ app.use(session({
   secret: "woxiangkankanshenmedongxi",
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 60000 }
+  cookie: { maxAge: 600000 }
 }));
 
 app.use(Controller);

@@ -3,6 +3,7 @@ import {
   Request as ExpressReq,
   NextFunction,
 } from "express";
+import { Users } from "@nws/entities/users";
 
 declare global {
   /** 统一的 api res 数据结构的定义 */
@@ -10,7 +11,7 @@ declare global {
     code: number;
     setSession?: any;
     // 接口是否需要验证后操作
-    needAuth?: boolean;
+    message?: string;
     data?: any;
   }
   interface Res extends ExpressRes {
@@ -21,6 +22,7 @@ declare global {
   }
   interface Req extends ExpressReq {
     locals: {
+      user?: Users;
       isNeedAuth?: boolean;
     };
   }

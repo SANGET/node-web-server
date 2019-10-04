@@ -1,0 +1,6 @@
+{
+  "name": "@nws/auth-service",
+  "description": "统一验证服务",
+  "version": "0.1.0",
+  "private": true
+}
