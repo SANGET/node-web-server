@@ -48,3 +48,6 @@ dist
 
 .config.local.json
 .config.local.js
+
+.config.admin.local.ts
+.config.client.local.ts
