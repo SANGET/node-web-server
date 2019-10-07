@@ -15,16 +15,16 @@ declare global {
     data?: any;
   }
   interface Res extends ExpressRes {
-    // locals: {
-    //   /** controller 需要按照此格式回应 */
-    //   handledResult: HandledResult;
-    // };
+    locals?: {
+      /** controller 需要按照此格式回应 */
+      handledResult: HandledResult;
+    };
   }
   interface Req extends ExpressReq {
     user?: HandledResult;
-    // locals: {
-    //   isNeedAuth?: boolean;
-    // };
+    locals?: {
+      isNeedAuth?: boolean;
+    };
   }
   interface Next extends NextFunction {
     locals: any;

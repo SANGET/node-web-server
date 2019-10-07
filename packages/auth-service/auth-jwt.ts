@@ -8,6 +8,7 @@ import { CodeCN } from "@nws/res-handler/res-code-mapper";
 import { Users } from "@nws/entities/users";
 
 import findUser from "./find-user";
+import { ResponseMsgStruct } from "@nws/res-handler";
 
 /** 使用统一验证的 code */
 export type VerifyJWTRes = {
@@ -28,12 +29,12 @@ export const verifyJWT = (jwtOptions: JwtOptions, token: string) => {
         } else {
           const user = await findUser({ id });
           if(user) {
-            reject(CodeMap["成功"]);
-          } else {
             resolve({
-              code: CodeMap["用户名或密码错误"],
+              code: CodeMap["成功"],
               user
             });
+          } else {
+            reject(CodeMap["用户名或密码错误"]);
           }
         }
       }
@@ -51,10 +52,7 @@ export const authJWT = (jwtOptions: JwtOptions) => async (req: Req, res: Res, ne
       next();
     })
     .catch(errCode => {
-      res.status(401).json({
-        code: errCode,
-        message: CodeCN[errCode]
-      });
+      res.status(401).json(ResponseMsgStruct(errCode));
     });
 };
 

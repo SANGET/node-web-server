@@ -16,10 +16,10 @@ createConnection().then(() => {
   /**
    * Start Express server.
    */
-  app.listen(ClientConfig, () => {
+  app.listen(ClientConfig.Port, () => {
     console.log(
       "  App is running at http://localhost:%d in %s mode",
-      ClientConfig,
+      ClientConfig.Port,
       app.get("env")
     );
     console.log("  Press CTRL-C to stop\n");

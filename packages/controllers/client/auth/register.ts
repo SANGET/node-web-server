@@ -26,7 +26,7 @@ export const register = async (req: Req, res: Res, next: Next) => {
     };
   }
 
-  req.user = handledResult;
+  res.locals.handledResult = handledResult;
 
   next();
 };
