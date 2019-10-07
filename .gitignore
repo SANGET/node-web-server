@@ -47,3 +47,4 @@ system/servers/webhook/config.js
 dist
 
 .config.local.json
+.config.local.js

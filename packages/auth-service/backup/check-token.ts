@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { Authorization, JWT_SEC, TockenExp } from "@nws/configs";
+import { Authorization, JwtSec, TockenExp } from "@nws/configs";
 import CodeMap from "@nws/res-handler/res-code-mapper/enum";
 import { CodeCN } from "@nws/res-handler/res-code-mapper";
 import findUser from "./find-user";
@@ -10,7 +10,7 @@ export const checkToken = (req: Req, res: Res, next: Next) => {
     // res.sendStatus(401);
     next();
   } else {
-    jwt.verify(token, JWT_SEC, async (err, decoded: any) => {
+    jwt.verify(token, JwtSec, async (err, decoded: any) => {
       const now = Date.now() / 1000;
       const { exp, id } = decoded;
       if(!err) {
@@ -34,15 +34,13 @@ export const checkToken = (req: Req, res: Res, next: Next) => {
                     exp: TockenExp,
                     id: user.id,
                   },
-                  JWT_SEC,
+                  JwtSec,
                 )
               }
             });
           }
         }
-        // next();
       }
     });
-    // if()
   }
 };

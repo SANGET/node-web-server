@@ -1,0 +1,6 @@
+{
+  "name": "@nws/admin",
+  "description": "管理功能",
+  "version": "0.1.0",
+  "private": true
+}

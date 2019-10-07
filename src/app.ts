@@ -26,6 +26,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //   cookie: { maxAge: 600000 }
 // }));
 
-app.use(Controller);
+Controller(app);
 
 export default app;

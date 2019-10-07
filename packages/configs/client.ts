@@ -1,8 +1,7 @@
 import fs from "fs";
 import path from "path";
 
-import { NWSConfig, AdminAppConfig, ClientAppConfig } from "./types";
-
+import { ClientAppConfig } from "./types";
 
 const defaultClientConfig: ClientAppConfig =  {
   Port: 5566,
@@ -14,18 +13,13 @@ const defaultClientConfig: ClientAppConfig =  {
   }
 };
 
-const defaultConfig: NWSConfig = {
-  AdminAppConfig: defaultAdminConfig,
-  ClientAppConfig: defaultClientConfig,
-};
-
-const LocalConfigFilePath = path.resolve(process.cwd(), ".config.local.ts");
+const LocalConfigFilePath = path.resolve(process.cwd(), ".config.client.local.ts");
 let localConfig;
 
 if(fs.existsSync(LocalConfigFilePath)) {
   localConfig = require(LocalConfigFilePath);
 }
 
-const Config: NWSConfig = Object.assign({}, defaultConfig, localConfig);
+const ClientConfig: ClientAppConfig = Object.assign({}, defaultClientConfig, localConfig);
 
-export default Config;
+export default ClientConfig;

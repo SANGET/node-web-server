@@ -1,11 +1,11 @@
 import passport from "passport";
 import { Strategy as JWTStrategy, ExtractJwt, StrategyOptions } from "passport-jwt";
-import { JWT_SEC, Authorization } from "@nws/configs";
+import { JwtSec, Authorization } from "@nws/configs";
 import findUser from "./find-user";
 
 const jwtOpts: StrategyOptions = {
   jwtFromRequest: ExtractJwt.fromHeader(Authorization),
-  secretOrKey: JWT_SEC,
+  secretOrKey: JwtSec,
 };
 
 const jwtStrategy = new JWTStrategy(jwtOpts, async (payload, done) => {

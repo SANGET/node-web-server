@@ -6,7 +6,7 @@ import bcrypt from "bcrypt";
 import CodeMap from "@nws/res-handler/res-code-mapper/enum";
 
 import findUser from "./find-user";
-import { JWT_SEC, TockenExp } from "@nws/configs";
+import { JwtSec, TockenExp } from "@nws/configs";
 
 // export const findUser = async (options) => {
 //   const { username, password } = options;
@@ -41,7 +41,7 @@ export const auth = async (options: AuthField): Promise<HandledResult> => {
                 exp: TockenExp,
                 id: user.id,
               },
-              JWT_SEC,
+              JwtSec,
             )
           }
         };

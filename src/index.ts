@@ -1,10 +1,11 @@
 import "reflect-metadata";
-import { createConnection, Connection } from "typeorm";
+import { createConnection } from "typeorm";
 
 import errorHandler from "errorhandler";
 
 import app from "./app";
-import { Port } from "@nws/configs";
+import ClientConfig from "@nws/configs/client";
+// import { CMSPort } from "@nws/configs";
 
 createConnection().then(() => {
   /**
@@ -15,10 +16,10 @@ createConnection().then(() => {
   /**
    * Start Express server.
    */
-  app.listen(Port, () => {
+  app.listen(ClientConfig, () => {
     console.log(
       "  App is running at http://localhost:%d in %s mode",
-      Port,
+      ClientConfig,
       app.get("env")
     );
     console.log("  Press CTRL-C to stop\n");
