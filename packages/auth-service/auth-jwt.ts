@@ -43,7 +43,7 @@ export const verifyJWT = (jwtOptions: JwtOptions, token: string) => {
 };
 
 export const authJWT = (jwtOptions: JwtOptions) => async (req: Req, res: Res, next: Next) => {
-  const { headerAuthKey, secretOrPrivateKey } = jwtOptions;
+  const { headerAuthKey } = jwtOptions;
   let token = req.headers[headerAuthKey];
   if(Array.isArray(token)) token = token[0];
 
@@ -55,30 +55,3 @@ export const authJWT = (jwtOptions: JwtOptions) => async (req: Req, res: Res, ne
       res.status(401).json(ResponseMsgStruct(errCode));
     });
 };
-
-
-// const jwtOpts: StrategyOptions = {
-//   jwtFromRequest: ExtractJwt.fromHeader(Authorization),
-//   secretOrKey: JwtSec,
-// };
-
-// const jwtStrategy = new JWTStrategy(jwtOpts, async (payload, done) => {
-//   console.log(payload);
-//   try {
-//     /** TODO: 将已经查过的用户放入 redis 缓存中 */
-//     const user = await findUser({ id: payload.id });
-//     // done(null, false);
-
-//     if (!user) {
-//       return done(null, false);
-//     }
-
-//     return done(null, user);
-//   } catch (e) {
-//     return done(e, false);
-//   }
-// });
-
-// passport.use(jwtStrategy);
-
-// export const authJwt = passport.authenticate("jwt", { session: false });

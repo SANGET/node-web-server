@@ -16,7 +16,7 @@ import { ResponseMsgStruct } from "@nws/res-handler";
 
 // checkToken(tokenConfig),
 export const authLocal = (tokenConfig: JwtOptions) => async (req: Req, res: Res, next: Next) => {
-  const { headerAuthKey, secretOrPrivateKey, exp } = tokenConfig;
+  const { secretOrPrivateKey, exp } = tokenConfig;
   const { username, password, token } = req.body;
   let handledResult: HandledResult;
 
