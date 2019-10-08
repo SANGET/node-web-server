@@ -17,7 +17,7 @@ const LocalConfigFilePath = path.resolve(process.cwd(), ".config.client.local.ts
 let localConfig;
 
 if(fs.existsSync(LocalConfigFilePath)) {
-  localConfig = require(LocalConfigFilePath);
+  localConfig = require(LocalConfigFilePath).default;
 }
 
 const ClientConfig: ClientAppConfig = Object.assign({}, defaultClientConfig, localConfig);

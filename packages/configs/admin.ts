@@ -17,7 +17,7 @@ const defaultAdminConfig: AdminAppConfig =  {
 let localConfig;
 
 if(fs.existsSync(LocalConfigFilePath)) {
-  localConfig = require(LocalConfigFilePath);
+  localConfig = require(LocalConfigFilePath).default;
 }
 const AdminConfig: AdminAppConfig = Object.assign({}, defaultAdminConfig, localConfig);
 
