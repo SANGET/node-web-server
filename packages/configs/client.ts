@@ -3,7 +3,7 @@ import path from "path";
 
 import { ClientAppConfig } from "./types";
 
-const defaultClientConfig: ClientAppConfig =  {
+const defaultClientConfig: ClientAppConfig = {
   Port: 5566,
   JwtOptions: {
     /** 默认一个小时 */

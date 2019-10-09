@@ -5,7 +5,7 @@ import { AdminAppConfig } from "./types";
 
 const LocalConfigFilePath = path.resolve(process.cwd(), ".config.admin.local.ts");
 
-const defaultAdminConfig: AdminAppConfig =  {
+const defaultAdminConfig: AdminAppConfig = {
   Port: 6677,
   JwtOptions: {
     /** 默认一个小时 */
