@@ -1,0 +1,24 @@
+version: "3"
+services:
+  dev:
+    image: node:alpine
+    volumes:
+      - ./:/app
+    working_dir: /node-webserver-app
+    depends_on:
+      - mysql
+    environment:
+      NODE_ENV: development
+    ports:
+      - 5566:5566
+      - 6677:6677
+    command: yarn start
+  mysql:
+    image: mysql:8.0.17
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=test
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=test
+    ports:
+      - "3306:3306"

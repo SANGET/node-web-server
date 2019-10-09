@@ -1,7 +1,7 @@
 # ---- base node version ---- #
 FROM node:lts-buster-slim AS base
 
-WORKDIR /home/uke-webserver/app
+WORKDIR /home/node-web-server/app
 
 # ---- dependencies ---- #
 FROM base AS dependencies
@@ -23,7 +23,7 @@ COPY . .
 # ---- release ---- #
 # FROM node:lts-buster-slim AS release
 
-EXPOSE 28101 28102 6650 8890
+EXPOSE 6677 5566
 
 RUN npm install pm2 -g
 ENV NODE_ENV=production
