@@ -7,7 +7,8 @@
     "packages/*"
   ],
   "scripts": {
-    "start": "npm run dev",
+    "start:docker:env": "docker-compose up",
+    "start": "yarn && npm run dev",
     "build": "npm run build-ts",
     "serve": "node dist/index.js",
     "dev": "nodemon",

@@ -1,20 +1,21 @@
 version: "3"
 services:
-  dev:
-    image: node:alpine
-    volumes:
-      - ./:/app
-    working_dir: /node-webserver-app
-    depends_on:
-      - mysql
-    environment:
-      NODE_ENV: development
-    ports:
-      - 5566:5566
-      - 6677:6677
-    command: yarn start
-  mysql:
+  # dev:
+  #   image: node:12.6
+  #   volumes:
+  #     - ./:/home/node-web-server/app
+  #   working_dir: /home/node-web-server/app
+  #   depends_on:
+  #     - db
+  #   environment:
+  #     NODE_ENV: development
+  #   ports:
+  #     - 5566:5566
+  #     - 6677:6677
+  #   command: "yarn start"
+  db:
     image: mysql:8.0.17
+    command: --default-authentication-plugin=mysql_native_password
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=test
@@ -22,3 +23,5 @@ services:
       - MYSQL_PASSWORD=test
     ports:
       - "3306:3306"
+    volumes:
+      - ./.data/db:/data/db

@@ -7,3 +7,4 @@ CREATE DATABASE test;
 
 -- Fix the node mysql bug
 ALTER USER 'test'@'localhost' IDENTIFIED WITH mysql_native_password BY 'test';
+FLUSH PRIVILEGES;
