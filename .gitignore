@@ -51,3 +51,5 @@ dist
 
 .config.admin.local.ts
 .config.client.local.ts
+
+.data
